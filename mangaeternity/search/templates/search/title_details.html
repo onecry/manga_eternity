@@ -1,2 +1,24 @@
 {% extends 'search/base.html' %}
 
+{% block title %}
+    {{ manga_data.title }}
+{% endblock title %}
+
+{% block body %}
+    <div>
+        <h1>{{ manga_data.title }}</h1>
+    </div>
+    <div>
+        <img src={{ manga_data.image }}>
+    </div>
+    <div>
+        <b>Description:</b>
+        <p>{{ manga_description }}</p>
+        <b>Genres:</b>
+        {% for genre in manga_data.genres %}
+            <p>{{ genre }}</p>
+        {% endfor %}
+        <b>Chapters: </b>
+        <p>{{ manga_data.chapters|length }}
+    </div>
+{% endblock body %}

@@ -7,8 +7,8 @@
 {% block body %}
         {% if manga_data %}
                 {% for manga in manga_data %}
+                    <p><a href="{% url 'search:title_details' manga_id=manga.id %}"
                     <p>{{ manga.title }}</p>
-                    <p><a href="{% url 'search:title_details' pk=manga.id %}"
                 {% endfor %}
         {% endif %}
     </div>
