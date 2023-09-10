@@ -1,0 +1,15 @@
+{% extends 'search/base.html' %}
+
+{% block title %}
+    There is result of your request
+{% endblock %}
+    
+{% block body %}
+        {% if manga_data %}
+                {% for manga in manga_data %}
+                    <p>{{ manga.title }}</p>
+                    <p><a href="{% url 'search:title_details' pk=manga.id %}"
+                {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

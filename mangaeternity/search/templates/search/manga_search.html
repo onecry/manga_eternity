@@ -1,0 +1,15 @@
+{% extends 'search/base.html' %}
+
+{% block title %}
+    Search manga
+{% endblock %}
+    
+{% block body %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}
