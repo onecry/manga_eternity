@@ -23,4 +23,6 @@ urlpatterns = [
     path('catalog/', include('catalog.urls')),
     
     path('manga/', include('search.urls')),
+    
+    path('auth/', include('userauth.urls'))
 ]
