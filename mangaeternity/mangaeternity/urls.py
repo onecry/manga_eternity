@@ -22,7 +22,7 @@ urlpatterns = [
     
     path('catalog/', include('catalog.urls')),
     
-    path('manga/', include('search.urls')),
+    path('manga/', include('manga.urls')),
     
     path('auth/', include('userauth.urls'))
 ]

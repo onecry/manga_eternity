@@ -7,7 +7,7 @@ from mangaeternity.settings import MANGA_URL, MANGA_IMAGES_URL
 from .forms import MangaTitleForm
 
 def get_manga_name_view(request:HttpRequest):
-    template_name = 'search/manga_search.html'
+    template_name = 'manga/manga_search.html'
     
     if request.method == 'POST':
         form = MangaTitleForm(request.POST)
@@ -15,14 +15,14 @@ def get_manga_name_view(request:HttpRequest):
             temp_title = form.cleaned_data['title']
             title = temp_title.lower()
             request.session['title'] = title
-            return redirect('search:titles_list')
+            return redirect('manga:titles_list')
     else:
         form = MangaTitleForm()
         return render(request, template_name, {"form": form})
     
     
 def get_titles_view(request:HttpRequest):
-    template_name = "search/titles_list.html"
+    template_name = "manga/titles_list.html"
     title = request.session.get('title')
     mangadex_r = requests.get(f"{MANGA_URL}/manga",
         params={"title": title}).json()
@@ -32,7 +32,7 @@ def get_titles_view(request:HttpRequest):
 
 
 def title_details_view(request:HttpRequest, manga_id):
-    template_name = "search/title_details.html"
+    template_name = "manga/title_details.html"
     mangadex_r = requests.get(f"{MANGA_URL}manga/{manga_id}?includes[]=cover_art").json()
     mangadex_data = mangadex_r["data"]
     manga_description = mangadex_data["attributes"]["description"]["en"].replace('---', '**').split('**')[0]
