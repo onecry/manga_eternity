@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, TemplateView, DetailView
 
-from mangaeternity.settings import MANGA_URL, MANGA_IMAGES_URL
+from mangaeternity.settings import MANGA_URL
 from .forms import MangaTitleForm
 
 def home_page_view(request:HttpRequest):
@@ -48,7 +48,7 @@ def title_details_view(request:HttpRequest, manga_id):
 
 def title_chapters_view(request:HttpRequest, manga_id):
     template_name = "manga/title_chapters.html"
-    languages = ['en']
+    languages = ['ru']
     
     mangadex_r = requests.get(
     f"{MANGA_URL}/manga/{manga_id}/feed?limit=500&order%5Bchapter%5D=asc",

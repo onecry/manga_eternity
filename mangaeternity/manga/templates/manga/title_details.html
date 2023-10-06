@@ -8,9 +8,11 @@
     <div>
         <h1>{{ manga_data.attributes.title.en }}</h1>
     </div>
+
     <div>
-        <img src="https://uploads.mangadex.org/covers/{{ manga_data.id }}/{{ cover_filename }}"/>
+        <img src="https://uploads.mangadex.org/covers/{{ manga_data.id }}/{{ cover_filename }}" width="400" />
     </div>
+
     <div>    
         <button>
             <a class="btn btn-primary" href="{% url 'manga:title_chapters' manga_id=manga_data.id %}">
