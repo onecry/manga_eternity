@@ -1,0 +1,16 @@
+{% extends 'manga/base.html' %}
+
+{% block title %}
+    Chapters
+{% endblock title %}
+
+{% block body %}
+    <div>
+        {% for chapters in manga_data %}
+        <div>
+            <a href="{% url "manga:read_chapter" chapter_id=chapters.id %}">
+            <b>{{ chapters.attributes.title }}: {{ chapters.attributes.chapter }}</b></a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock body %}

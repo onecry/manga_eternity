@@ -11,7 +11,12 @@
     <div>
         <img src="https://uploads.mangadex.org/covers/{{ manga_data.id }}/{{ cover_filename }}"/>
     </div>
-    <div>
+    <div>    
+        <button>
+            <a class="btn btn-primary" href="{% url 'manga:title_chapters' manga_id=manga_data.id %}">
+                Chapters</a>
+        </button>
+    </div>
         <b>Description:</b>
         <p>{{ manga_description }}</p>
         <b>Status:</b> <p>{{ manga_data.attributes.status }}</p>
@@ -20,9 +25,4 @@
         {% for tag in manga_data.attributes.tags %}
             <p>{{ tag.attributes.name.en }}</p>
         {% endfor %}
-        {% comment %} <button>
-            <a class="btn btn-primary" href="{% url 'search:title_read' manga_id=manga_data.id chapter_id=1 %}">
-                Start reading</a>
-        </button> {% endcomment %}
-    </div>
 {% endblock body %}
