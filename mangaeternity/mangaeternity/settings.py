@@ -49,7 +49,6 @@ INSTALLED_APPS = [
 ]
 
 PROJECT_APPS = [
-    'catalog.apps.CatalogConfig',
     'manga.apps.MangaConfig',
     'userauth.apps.UserauthConfig',
 ]
