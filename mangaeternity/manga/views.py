@@ -1,7 +1,6 @@
 import requests
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from django.views.generic import View, ListView, TemplateView, DetailView
 
 from mangaeternity.settings import MANGA_URL
 from .forms import MangaTitleForm
