@@ -1,0 +1,29 @@
+{% extends 'manga/base.html' %}
+
+{% block title %}
+    Manga eternity
+{% endblock title %}
+
+{% block body %}
+<div>
+{% for manga in manga_data %}
+    <a href="{% url 'manga:title_details' manga_id=manga.id %}">
+    <p class="items-text">{{ manga.attributes.title.en }}</p></a>
+    {% for relationship in manga.relationships %}
+        {% if relationship.type == "cover_art" %}
+            <img src="https://uploads.mangadex.org/covers/{{ manga.id }}/{{ relationship.attributes.fileName }}" width="100" />
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+</div>
+<style>
+    .items-text {
+        width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+</style>
+{% endblock body %}

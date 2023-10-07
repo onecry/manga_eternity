@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from manga.views import home_page_redirect_view
 
 urlpatterns = [
+    path('', home_page_redirect_view),
+    
     path('admin/', admin.site.urls),
     
     path('manga/', include('manga.urls')),

@@ -1,12 +1,33 @@
 import requests
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from mangaeternity.settings import MANGA_URL
 from .forms import MangaTitleForm
 
+def home_page_redirect_view(request:HttpRequest):
+    return HttpResponseRedirect("manga")
+
 def home_page_view(request:HttpRequest):
-    pass
+    template_name = 'manga/homepage.html'
+    
+    order = {
+        "rating": "desc",
+    }   
+
+    final_order_query = {}
+
+    for key, value in order.items():
+        final_order_query[f"order[{key}]"] = value
+        
+    mangadex_r = requests.get(
+        f"{MANGA_URL}/manga?limit=100&includes[]=cover_art&availableTranslatedLanguage%5B%5D=ru&availableTranslatedLanguage%5B%5D=en",
+        params={**final_order_query,}
+        ).json()
+    mangadex_data = mangadex_r["data"]
+    
+    return render(request, template_name, {"manga_data": mangadex_data})
+
 
 def get_manga_name_view(request:HttpRequest):
     template_name = 'manga/manga_search.html'
@@ -26,11 +47,11 @@ def get_manga_name_view(request:HttpRequest):
 def get_titles_view(request:HttpRequest):
     template_name = "manga/titles_list.html"
     title = request.session.get('title')
-    mangadex_r = requests.get(f"{MANGA_URL}/manga",
+    mangadex_r = requests.get(f"{MANGA_URL}/manga?includes[]=cover_art",
         params={"title": title}).json()
-    manga_data = mangadex_r["data"]
+    mangadex_data = mangadex_r["data"]
     
-    return render(request, template_name, {"manga_data": manga_data})
+    return render(request, template_name, {"manga_data": mangadex_data})
 
 
 def title_details_view(request:HttpRequest, manga_id):
