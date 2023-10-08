@@ -19,7 +19,7 @@ def home_page_view(request:HttpRequest):
 
     for key, value in order.items():
         final_order_query[f"order[{key}]"] = value
-        
+    
     mangadex_r = requests.get(
         f"{MANGA_URL}/manga?limit=100&includes[]=cover_art&availableTranslatedLanguage%5B%5D=ru&availableTranslatedLanguage%5B%5D=en",
         params={**final_order_query,}
@@ -68,7 +68,7 @@ def title_details_view(request:HttpRequest, manga_id):
 
 def title_chapters_view(request:HttpRequest, manga_id):
     template_name = "manga/title_chapters.html"
-    languages = ['ru']
+    languages = ['en']
     
     mangadex_r = requests.get(
     f"{MANGA_URL}/manga/{manga_id}/feed?limit=500&order%5Bchapter%5D=asc",
@@ -76,10 +76,27 @@ def title_chapters_view(request:HttpRequest, manga_id):
     ).json()
     mangadex_data = mangadex_r["data"]
     
-    return render(request, template_name, {'manga_data': mangadex_data})
+    return render(request, template_name, {'manga_data': mangadex_data, 'manga_id': manga_id})
 
-def read_chapter_view(request:HttpRequest, chapter_id):
+def read_chapter_view(request:HttpRequest, chapter_id, manga_id, next_chapter_id=None):
     template_name = "manga/chapter.html"
     mangadex_r = requests.get(f"{MANGA_URL}/at-home/server/{chapter_id}").json()
     
-    return render(request, template_name, {'chapter_data': mangadex_r})
+    # for next chapter
+    languages = ['en']
+    
+    chapters_r = requests.get(
+    f"{MANGA_URL}/manga/{manga_id}/feed?limit=500&order%5Bchapter%5D=asc",
+    params={"translatedLanguage[]": languages},
+    ).json()
+    all_chapters = chapters_r["data"]
+    
+    for chapters in all_chapters:
+        if chapter_id == chapters['id']:
+            chapter_index = all_chapters.index(chapters)
+            next_chapter_index = chapter_index + 1
+    
+    next_chapter_id = all_chapters[next_chapter_index]['id']
+    
+    
+    return render(request, template_name, {'chapter_data': mangadex_r, 'manga_id': manga_id, 'next_chapter_id': next_chapter_id})

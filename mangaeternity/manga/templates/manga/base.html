@@ -9,7 +9,17 @@
     </title>
 </head>
 <body>
+  <div class="search_href">
+    <a href={% url "manga:manga_search" %}>
+        <h2>Search manga</h2></a>
+  </div>
 
+  <style>
+    .search_href {
+        vertical-align: top;
+        text-align: right;
+    }
+  </style>
 {% block body %}
   Base Body
 {% endblock %}

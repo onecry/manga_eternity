@@ -9,5 +9,5 @@ urlpatterns = [
     path("titles/", get_titles_view, name="titles_list"),
     path("title/<manga_id>/", title_details_view, name="title_details"),
     path("title/<manga_id>/chapters/", title_chapters_view, name="title_chapters"),
-    path("read/<chapter_id>", read_chapter_view, name="read_chapter"),
+    path("read/<manga_id>/<chapter_id>", read_chapter_view, name="read_chapter"),
 ]
