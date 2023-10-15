@@ -11,10 +11,10 @@ class Manga(models.Model):
     status = models.CharField(max_length=10)
     
 class UserMangaList(models.Model):
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     manga = models.ManyToManyField(Manga, related_name='read_list')
     def __str__(self):
-        return f"{self.user_profile.name}'s reading list"
+        return f"{self.user.name}'s reading list"
 
     @property
     def reading(self):

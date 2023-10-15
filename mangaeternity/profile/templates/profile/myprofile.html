@@ -1,0 +1,15 @@
+{% extends "profile/base.html" %}
+
+{% block title %}
+    My profile
+{% endblock title %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+    <h1>{{ user }}'s profile</h1>
+        <div>
+            {{ user.email }}
+        </div>
+    {% endif %}
+{% endblock body %}
+

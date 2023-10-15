@@ -1,7 +1,8 @@
+from typing import Any
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 
@@ -49,3 +50,10 @@ class UserRegisterView(CreateView):
     
 #Profile views
     
+class MyProfileView(TemplateView):
+    template_name = "profile/myprofile.html"
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+    
+        return context
