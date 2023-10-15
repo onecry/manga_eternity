@@ -25,5 +25,5 @@ urlpatterns = [
     
     path('manga/', include('manga.urls')),
     
-    path('profile/', include('userauth.urls'))
+    path('profile/', include('profile.urls'))
 ]

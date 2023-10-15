@@ -1,16 +1,16 @@
-{% extends "userauth/base.html" %}
+{% extends "profile/base.html" %}
 
 {% block title %}
-  Register
+  Login
 {% endblock %}
 
 {% block body %}
-  <h1>Register</h1>
+
   <form method="post">
     {% csrf_token %}
 
     {{ form.as_p }}
-    
-    <input type="submit" value="Register">
+
+    <button type="submit">Login</button>
   </form>
 {% endblock %}

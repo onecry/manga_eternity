@@ -49,8 +49,8 @@ INSTALLED_APPS = [
 ]
 
 PROJECT_APPS = [
-    'manga.apps.MangaConfig',
-    'userauth.apps.UserauthConfig',
+    'manga',
+    'profile',
 ]
 
 INSTALLED_APPS += PROJECT_APPS
@@ -147,4 +147,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy("search:manga_search")
+LOGIN_REDIRECT_URL = reverse_lazy("manga:manga_search")

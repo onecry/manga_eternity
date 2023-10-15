@@ -3,12 +3,12 @@ from django.urls import path
 
 from .views import UserRegisterView, UserLogoutView
 
-app_name = "userauth"
+app_name = "profile"
 
 urlpatterns = [
     path("login/",
          LoginView.as_view(
-             template_name="userauth/login.html",
+             template_name="profile/login.html",
              redirect_authenticated_user=True
              ),
          name="login"
