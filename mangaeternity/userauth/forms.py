@@ -1,10 +1,11 @@
-from django.forms import EmailField
+from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import UserMangaList, Manga
 
 
 class CustomUserCreationForm(UserCreationForm):
-    email = EmailField(label="Email address", required=True,
+    email = forms.EmailField(label="Email address", required=True,
         help_text="Required.")
 
     class Meta:
@@ -17,3 +18,13 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+class UserInfoForm(forms.ModelForm):
+    class Meta:
+        model = UserMangaList
+        fields = ('user_profile', 'manga', )
+        
+class MangaForm(forms.ModelForm):
+    class Meta:
+        model = Manga
+        fields = ('title', 'status', )

@@ -6,14 +6,16 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 
 from .forms import CustomUserCreationForm
-from .models import UserProfile
+from .models import UserProfile, UserMangaList
+
+#Auth views
 
 def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":
         if request.user.is_authenticated:
-            return redirect('search:manga_search.html')
+            return redirect('manga:manga_search.html')
 
-        return render(request, 'userauth/login.html')
+        return render(request, 'profile/login.html')
 
     username = request.POST["username"]
     password = request.POST["password"]
@@ -21,17 +23,17 @@ def login_view(request: HttpRequest) -> HttpResponse:
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('search:manga_search.html')
+        return redirect('manga:manga_search.html')
 
-    return render(request, 'userauth/login.html', {"error": "Invalid login credentials"})
+    return render(request, 'profile/login.html', {"error": "Invalid login credentials"})
 
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy("userauth:login")
 
 class UserRegisterView(CreateView):
     form_class = CustomUserCreationForm
-    template_name = "userauth/register.html"
-    success_url = reverse_lazy("search:manga_search")
+    template_name = "profile/register.html"
+    success_url = reverse_lazy("manga:manga_search")
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -44,4 +46,6 @@ class UserRegisterView(CreateView):
 
 
         return response
+    
+#Profile views
     
