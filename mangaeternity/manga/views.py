@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 
 from mangaeternity.settings import MANGA_URL
 from .forms import MangaTitleForm
+from profile.forms import MangaListForm
 
 def home_page_redirect_view(request:HttpRequest):
     return HttpResponseRedirect("manga")
@@ -56,6 +57,7 @@ def get_titles_view(request:HttpRequest):
 
 def title_details_view(request:HttpRequest, manga_id):
     template_name = "manga/title_details.html"
+    form = MangaListForm()
     mangadex_r = requests.get(f"{MANGA_URL}/manga/{manga_id}?includes[]=cover_art").json()
     mangadex_data = mangadex_r["data"]
     manga_description = mangadex_data["attributes"]["description"]["en"].replace('---', '**').split('**')[0]
@@ -63,8 +65,11 @@ def title_details_view(request:HttpRequest, manga_id):
     for relationship in mangadex_data["relationships"]:
         if relationship["type"] == "cover_art":
             cover_filename = relationship["attributes"]["fileName"]
-    
-    return render(request, template_name, {'manga_data': mangadex_data, 'manga_description': manga_description, 'cover_filename': cover_filename})
+            
+    if request.user.is_authenticated:
+        return render(request, template_name, {'manga_data': mangadex_data, 'manga_description': manga_description, 'cover_filename': cover_filename, 'form': form})
+    else:
+        return render(request, template_name, {'manga_data': mangadex_data, 'manga_description': manga_description, 'cover_filename': cover_filename})
 
 def title_chapters_view(request:HttpRequest, manga_id):
     template_name = "manga/title_chapters.html"

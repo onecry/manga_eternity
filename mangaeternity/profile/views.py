@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 
 from .forms import CustomUserCreationForm
-from .models import UserProfile, UserMangaList
+from .models import UserProfile
 
 #Auth views
 

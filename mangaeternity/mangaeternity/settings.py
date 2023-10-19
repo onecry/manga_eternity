@@ -147,4 +147,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy("manga:manga_search")
+LOGIN_REDIRECT_URL = reverse_lazy("manga:home_page")

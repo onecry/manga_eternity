@@ -19,6 +19,7 @@
                 Chapters</a>
         </button>
     </div>
+    <div>
         <b>Description:</b>
         <p>{{ manga_description }}</p>
         <b>Status:</b> <p>{{ manga_data.attributes.status }}</p>
@@ -27,4 +28,5 @@
         {% for tag in manga_data.attributes.tags %}
             <p>{{ tag.attributes.name.en }}</p>
         {% endfor %}
+    </div>
 {% endblock body %}

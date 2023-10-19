@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserMangaList, Manga, UserProfile
+from .models import Manga, UserProfile
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -18,13 +18,8 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
-    
-class UserMangaForm(forms.ModelForm):
-    class Meta:
-        model = UserMangaList
-        fields = ['user', 'manga', ]
-        
-class MangaForm(forms.ModelForm):
-    class Meta:
-        model = Manga
-        fields = ['title', 'status', ]
+
+class MangaListForm(forms.Form):
+    reading = forms.BooleanField(required=False)
+    planned = forms.BooleanField(required=False)
+    read = forms.BooleanField(required=False)
