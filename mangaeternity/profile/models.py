@@ -8,7 +8,7 @@ class Manga(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     email = models.EmailField(max_length=320)
-    manga = models.ManyToManyField(Manga, related_name='users')
-    reading = models.ManyToManyField(Manga, related_name='reading_users')
-    planned = models.ManyToManyField(Manga, related_name='planned_users')
-    read = models.ManyToManyField(Manga, related_name='read_users')
+    manga = models.ManyToManyField(Manga, related_name='user_manga')
+    reading = models.ManyToManyField(Manga, related_name='reading_manga')
+    planned = models.ManyToManyField(Manga, related_name='planned_manga')
+    read = models.ManyToManyField(Manga, related_name='read_manga')

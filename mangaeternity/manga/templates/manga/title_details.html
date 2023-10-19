@@ -19,6 +19,13 @@
                 Chapters</a>
         </button>
     </div>
+    <div class="dropdown">
+        <button class="dropbtn">Add to list</button>
+        <div class="dropdown-content">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </div>
+    </div>
     <div>
         <b>Description:</b>
         <p>{{ manga_description }}</p>
