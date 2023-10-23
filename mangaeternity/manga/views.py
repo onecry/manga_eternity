@@ -68,7 +68,8 @@ def title_details_view(request:HttpRequest, manga_id):
             cover_filename = relationship["attributes"]["fileName"]
             
     if request.user.is_authenticated:
-        manga = Manga.objects.create(title=mangadex_data['attributes']['title']['en'], manga_id=manga_id)
+        if not Manga.objects.filter(title=mangadex_data['attributes']['title']['en'], manga_id=manga_id).exists():
+            manga = Manga.objects.create(title=mangadex_data['attributes']['title']['en'], manga_id=manga_id)
         return render(request, template_name, {'manga_data': mangadex_data, 'manga_description': manga_description, 'cover_filename': cover_filename, 'form': form})
     else:
         return render(request, template_name, {'manga_data': mangadex_data, 'manga_description': manga_description, 'cover_filename': cover_filename})

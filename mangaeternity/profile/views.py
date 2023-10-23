@@ -29,7 +29,7 @@ def login_view(request: HttpRequest) -> HttpResponse:
     return render(request, 'profile/login.html', {"error": "Invalid login credentials"})
 
 class UserLogoutView(LogoutView):
-    next_page = reverse_lazy("profile:login")
+    next_page = reverse_lazy("manga:home_page")
 
 class UserRegisterView(CreateView):
     form_class = CustomUserCreationForm
