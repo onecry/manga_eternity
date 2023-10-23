@@ -14,7 +14,7 @@ from .models import UserProfile
 def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":
         if request.user.is_authenticated:
-            return redirect('manga:manga_search.html')
+            return redirect('manga:homepage.html')
 
         return render(request, 'profile/login.html')
 
@@ -24,7 +24,7 @@ def login_view(request: HttpRequest) -> HttpResponse:
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('manga:manga_search.html')
+        return redirect('manga:homepage.html')
 
     return render(request, 'profile/login.html', {"error": "Invalid login credentials"})
 
@@ -34,7 +34,7 @@ class UserLogoutView(LogoutView):
 class UserRegisterView(CreateView):
     form_class = CustomUserCreationForm
     template_name = "profile/register.html"
-    success_url = reverse_lazy("manga:manga_search")
+    success_url = reverse_lazy("manga:homepage")
 
     def form_valid(self, form):
         response = super().form_valid(form)
