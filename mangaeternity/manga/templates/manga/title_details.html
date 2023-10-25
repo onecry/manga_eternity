@@ -13,11 +13,13 @@
         <img src="https://uploads.mangadex.org/covers/{{ manga_data.id }}/{{ cover_filename }}" width="400" />
     </div>
 
-    <div>    
-        <button>
-            <a class="btn btn-primary" href="{% url 'manga:title_chapters' manga_id=manga_data.id %}">
-                Chapters</a>
-        </button>
+    <div>
+        <div class="dropdown">
+            <button class="dropbtn">Chapters</button>
+            <div class="dropdown-content">
+                <a href="{% url 'manga:title_chapters' manga_id=manga_data.id language='ru' %}">Read in Russian</a>
+                <a href="{% url 'manga:title_chapters' manga_id=manga_data.id language='en' %}">Read in English</a>
+        </div>
     </div>
     {% if user.is_authenticated %}
         <div class="dropdown">

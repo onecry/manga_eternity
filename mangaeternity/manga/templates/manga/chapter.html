@@ -6,8 +6,8 @@
 
 {% block body %}
     <div class="container">
-        <a href={% url "manga:home_page" %}>
-            <h2>Go to home page</h2></a>
+        <a href={% url "manga:read_chapter" chapter_id=next_chapter_id manga_id=manga_id %}>
+            <h3>Next chapter</h3></a>
     </div>
     <div class="container">
         {% for img_url in chapter_data.chapter.data %}

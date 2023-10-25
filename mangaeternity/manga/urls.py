@@ -8,6 +8,6 @@ urlpatterns = [
     path("search/", get_manga_name_view, name="manga_search"),
     path("titles/", get_titles_view, name="titles_list"),
     path("title/<manga_id>/", title_details_view, name="title_details"),
-    path("title/<manga_id>/chapters/", title_chapters_view, name="title_chapters"),
-    path("read/<manga_id>/<chapter_id>", read_chapter_view, name="read_chapter"),
+    path("title/<manga_id>/chapters/<language>", title_chapters_view, name="title_chapters"),
+    path("read/<manga_id>/<chapter_id>/", read_chapter_view, name="read_chapter"),
 ]

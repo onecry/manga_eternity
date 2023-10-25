@@ -70,13 +70,20 @@ def title_details_view(request:HttpRequest, manga_id):
     if request.user.is_authenticated:
         if not Manga.objects.filter(title=mangadex_data['attributes']['title']['en'], manga_id=manga_id).exists():
             manga = Manga.objects.create(title=mangadex_data['attributes']['title']['en'], manga_id=manga_id)
-        return render(request, template_name, {'manga_data': mangadex_data, 'manga_description': manga_description, 'cover_filename': cover_filename, 'form': form})
+        return render(request, template_name, {
+            'manga_data': mangadex_data, 'manga_description': manga_description,
+            'cover_filename': cover_filename,'form':form,
+            })
     else:
-        return render(request, template_name, {'manga_data': mangadex_data, 'manga_description': manga_description, 'cover_filename': cover_filename})
+        return render(request, template_name, {
+            'manga_data': mangadex_data, 'manga_description': manga_description, 
+            'cover_filename': cover_filename,
+            })
 
-def title_chapters_view(request:HttpRequest, manga_id):
+def title_chapters_view(request:HttpRequest, manga_id, language):
     template_name = "manga/title_chapters.html"
-    languages = ['en']
+    languages = [language]
+    request.session['language'] = language
     
     mangadex_r = requests.get(
     f"{MANGA_URL}/manga/{manga_id}/feed?limit=500&order%5Bchapter%5D=asc",
@@ -91,7 +98,7 @@ def read_chapter_view(request:HttpRequest, chapter_id, manga_id, next_chapter_id
     mangadex_r = requests.get(f"{MANGA_URL}/at-home/server/{chapter_id}").json()
     
     # for next chapter
-    languages = ['en']
+    languages = [request.session['language']]
     
     chapters_r = requests.get(
     f"{MANGA_URL}/manga/{manga_id}/feed?limit=500&order%5Bchapter%5D=asc",
@@ -103,8 +110,9 @@ def read_chapter_view(request:HttpRequest, chapter_id, manga_id, next_chapter_id
         if chapter_id == chapters['id']:
             chapter_index = all_chapters.index(chapters)
             next_chapter_index = chapter_index + 1
+            next_chapter_id = all_chapters[next_chapter_index]['id']
     
-    next_chapter_id = all_chapters[next_chapter_index]['id']
-    
-    
-    return render(request, template_name, {'chapter_data': mangadex_r, 'manga_id': manga_id, 'next_chapter_id': next_chapter_id})
+    return render(request, template_name, {
+        'chapter_data': mangadex_r, 'manga_id': manga_id,
+        'next_chapter_id': next_chapter_id
+        })

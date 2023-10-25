@@ -6,11 +6,15 @@
 
 {% block body %}
     <div>
-        {% for chapters in manga_data %}
-        <div>
-            <a href="{% url "manga:read_chapter" chapter_id=chapters.id manga_id=manga_id %}">
-            <b>{{ chapters.attributes.title }}: {{ chapters.attributes.chapter }}</b></a>
-        </div>
-        {% endfor %}
+        {% if manga_data %}
+            {% for chapters in manga_data %}
+            <div>
+                <a href="{% url "manga:read_chapter" chapter_id=chapters.id manga_id=manga_id %}">
+                <b>{{ chapters.attributes.title }}: {{ chapters.attributes.chapter }}</b></a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h3>There are no chapters in this language, you can check the chapters in another language</h3>
+        {% endif %}
     </div>
 {% endblock body %}
